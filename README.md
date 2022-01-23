@@ -34,21 +34,21 @@ A pre-trained traced model should be in cached ROS directory which can be done b
 cd ~/.ros
 wget https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-small-traced.pt
 ~~~
-# Run Depth Only
+### Run Depth Only
 ~~~
 roslaunch midas_cpp midas_cpp_xyzrgb.launch input_topic:="/input/image" gt_topic:="/ground_truth_depth" camera_info_in:="/image/camera_info"
 ~~~
-# Run Segmentation only 
+### Run Segmentation only 
 
 ~~~
 roslaunch midas_cpp midas_cpp_seg.launch input_topic:="/input/image"  image_input_original_topic:="/input/image_color" segmentation_topic:="/segmented"
 ~~~
-# Run Segmentation and Depth rescale with SLAM features
+### Run Segmentation and Depth rescale with SLAM features
 ~~~
 roslaunch midas_cpp midas_cpp_features_seg.launch input_topic:="/input/image"  camera_info_in:="/input/camera_info" map_topic:="/input/map_point" pose_topic:="/input/pose" image_input_original_topic:="/input/image_color" segmentation_topic:="/segmented"
 ~~~
 
-### V0.3: Beta version, 4 Sep 2020
+### ORB_SLAM3
 **Authors:** Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, [José M. M. Montiel](http://webdiis.unizar.es/~josemari/), [Juan D. Tardos](http://webdiis.unizar.es/~jdtardos/).
 
 The [Changelog](https://github.com/UZ-SLAMLab/ORB_SLAM3/Changelog.md) describes the features of each version.
