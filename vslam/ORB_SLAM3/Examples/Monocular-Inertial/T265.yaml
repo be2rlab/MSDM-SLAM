@@ -1,0 +1,88 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+Camera.type: "KannalaBrandt8"
+
+# Camera calibration and distortion parameters (OpenCV) 
+Camera.fx: 2.8498089599609375e+02 # 190.97847715128717
+Camera.fy: 2.8610238647460938e+02 # 190.9733070521226
+Camera.cx: 4.2524438476562500e+02 # 254.93170605935475
+Camera.cy: 3.9846759033203125e+02 # 256.8974428996504
+
+# Equidistant distortion 0.0034823894022493434, 0.0007150348452162257, -0.0020532361418706202, 0.00020293673591811182
+# Camera.bFishEye: 1
+Camera.k1: -7.3047108016908169e-03 # 0.0034823894022493434
+Camera.k2: 4.3499931693077087e-02 # 0.0007150348452162257
+Camera.k3: -4.1283041238784790e-02 # -0.0020532361418706202
+Camera.k4: 7.6524601317942142e-03 # 0.00020293673591811182
+    
+# Camera resolution
+Camera.width: 848
+Camera.height: 800
+
+# Camera frames per second 
+Camera.fps: 30.0
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Transformation from body-frame (imu) to camera
+# Extrinsic from "Accel"	  To	  "Fisheye 1"
+# Tbc: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: f
+#    data: [-0.99993,         -0.00786421,       0.00882587, 0.0106999985873699,    
+#           0.00790399,         -0.999959,       0.00448144, -1.45519152283669e-11,
+#           0.00879027,        0.00455089,       0.999951 , 2.18278728425503e-11,
+#           0.0, 0.0, 0.0, 1.0]
+#Extrinsic from "Fisheye 1"	  To	  "Gyro" 
+Tbc: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [-0.99993,          0.00790399,       0.00879027, 0.0106992498040199,    
+          -0.00786421,      -0.999959,         0.00455089, 8.41470318846405e-05,   
+          0.00882587,       0.00448144,       0.999951, -9.44368439377286e-05,0., 0., 0.,
+             1. ]
+
+IMU.NoiseGyro: 0.00230
+IMU.NoiseAcc:  0.00820
+IMU.GyroWalk:  0.00071
+IMU.AccWalk:   0.01000
+IMU.Frequency: 200
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1500 # Tested with 1250
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20 # 20
+ORBextractor.minThFAST: 7 # 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5 # -1.8
+Viewer.ViewpointF: 500

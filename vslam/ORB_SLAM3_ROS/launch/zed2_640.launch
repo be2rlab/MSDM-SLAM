@@ -1,0 +1,25 @@
+<launch>
+  <node name="vslam_stereo_inertial" pkg="vslam"
+      type="vslam_stereo_inertial" output="screen">
+
+    <param name="Vocab_path" type="string" value="$(find vslam)/ORB_SLAM3/Vocabulary/ORBvoc.txt" />
+    <param name="Params" type="string" value="$(find vslam)/ORB_SLAM3_ROS/params/Stereo-Inertial/Zed2_640.yaml" />
+    <param name="Output_name" type="string" value="zed2" />
+
+    <param name="Visualize" type="bool" value="false" />
+    <param name="Do_Rectify" type="bool" value="true" />
+    <param name="Do_Equalize" type="bool" value="false" />
+    <param name="Do_Resize" type="bool" value="true" />
+    <param name="New_width" type="int" value="640" />
+    <param name="New_height" type="int" value="360" />
+
+    <param name="pointcloud_frame_id" type="string" value="map" />
+    <param name="world_frame_id" type="string" value="world" />
+    <param name="left_cam_frame_id" type="string" value="map" />
+
+    <remap from="/camera/left/image_raw" to="/zed2/zed_node/left/image_rect_color" />
+    <remap from="/camera/right/image_raw" to="/zed2/zed_node/right/image_rect_color" />
+    <remap from="/imu" to="/zed2/zed_node/imu/data" />
+
+  </node>
+</launch>

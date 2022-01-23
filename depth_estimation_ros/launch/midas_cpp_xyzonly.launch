@@ -1,0 +1,51 @@
+<launch>
+    <arg name="input_topic" default="image_topic"/>
+    <arg name="midas_topic" default="midas_topic"/>
+    <arg name="output_topic" default="scaled_depth"/>
+    <arg name="camera_info_in" default="camera_info_in"/>
+    <arg name="camera_info_out" default="camera_out"/>
+    <arg name="gt_topic" default="gt_topic"/>
+    <arg name="model_name" default="model-small-traced.pt"/>
+    <arg name="out_orig_size" default="true"/>
+    <arg name="net_width" default="256"/>
+    <arg name="net_height" default="256"/>
+    <arg name="logging" default="false"/>
+
+    <node pkg="midas_cpp" type="midas_cpp" name="midas_cpp" output="log" respawn="true">
+        <param name="input_topic" value="$(arg input_topic)"/>
+        <param name="midas_topic" value="$(arg midas_topic)"/>
+        <param name="model_name" value="$(arg model_name)"/>
+        <param name="out_orig_size" value="$(arg out_orig_size)"/>
+        <param name="net_width" value="$(arg net_width)"/>
+        <param name="net_height" value="$(arg net_height)"/>
+        <param name="logging" value="$(arg logging)"/>
+    </node>
+    
+        <node pkg="nodelet" type="nodelet" args="manager" name="standalone_nodelet" output="screen"/>
+
+    <!-- Convert to point cloud -->
+    <node pkg="nodelet" type="nodelet" name="depth_image_proc" args="load depth_image_proc/point_cloud_xyz standalone_nodelet" output="screen">
+
+        <!-- Input: Camera calibration and metadata.  (sensor_msgs/CameraInfo) -->
+        <remap from="camera_info" to="$(arg camera_info_out)"/>
+
+
+        <!-- Input: Rectified depth image, registered to the RGB camera. (sensor_msgs/Image) -->
+        <remap from="image_rect" to="$(arg output_topic)"/>
+
+        <!-- Output: XYZ point cloud. If using PCL, subscribe as PointCloud<PointXYZ>.  (sensor_msgs/PointCloud2)  -->
+        <remap from="points" to="/point_cloud/points_dense"/>
+
+    </node>
+    
+    <node pkg="midas_cpp" type="scale_gt.py" name="scale_gt" output="log" respawn="true">
+        <param name="midas_topic" value="$(arg midas_topic)"/>
+        <param name="gt_topic" value="$(arg gt_topic)"/>
+        <param name="output_topic" value="$(arg output_topic)"/>
+        <param name="camera_info_in" value="$(arg camera_info_in)"/>
+        <param name="camera_info_out" value="$(arg camera_info_out)"/>
+    </node>
+    
+    
+    
+</launch>

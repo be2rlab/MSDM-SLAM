@@ -1,0 +1,21 @@
+<launch>
+  <node name="vslam_stereo_inertial" pkg="vslam"
+      type="vslam_stereo_inertial" output="screen">
+
+    <param name="Vocab_path" type="string" value="$(find vslam)/ORB_SLAM3/Vocabulary/ORBvoc.txt" />
+    <param name="Params" type="string" value="$(find vslam)/ORB_SLAM3_ROS/params/Stereo-Inertial/EuRoC.yaml" />
+    <param name="Output_name" type="string" value="EuRoC" />
+
+    <param name="Do_Rectify" type="bool" value="true" />
+    <param name="Do_Equalize" type="bool" value="false" />
+
+    <param name="pointcloud_frame_id" type="string" value="map" />
+    <param name="world_frame_id" type="string" value="world" />
+    <param name="left_cam_frame_id" type="string" value="map" />
+
+    <remap from="/camera/left/image_raw" to="/cam0/image_raw" />
+    <remap from="/camera/right/image_raw" to="/cam1/image_raw" />
+    <remap from="/imu" to="/imu0" />
+
+  </node>
+</launch>

@@ -1,0 +1,123 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+Camera.type: "KannalaBrandt8"
+#   frame_id: "camera_fisheye1_optical_frame"
+# height: 800
+# width: 848
+# distortion_model: "equidistant"
+# D: [-0.007864823564887047, 0.045432429760694504, -0.04343501850962639, 0.007984111085534096, 0.0]
+# K: [286.1922912597656, 0.0, 416.743896484375, 0.0, 286.1814880371094, 404.2049865722656, 0.0, 0.0, 1.0]
+# R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+# P: [286.1922912597656, 0.0, 416.743896484375, 0.0, 0.0, 286.1814880371094, 404.2049865722656, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+# Camera calibration parameters (OpenCV) 
+Camera.fx: 286.1922912597656 
+Camera.fy: 286.1814880371094 
+Camera.cx: 416.743896484375  
+Camera.cy: 404.2049865722656 
+
+# Kannala-Brandt distortion parameters
+Camera.k1: -0.007864823564887047 
+Camera.k2: 0.045432429760694504  
+Camera.k3: -0.04343501850962639  
+Camera.k4: 0.007984111085534096  
+
+#  Intrinsic of "Fisheye 2" / 848x800 / {Y8}
+# Width:      848
+# Height:     800
+# PPX:        419.949584960938
+# PPY:        406.088104248047
+# Fx:         286.053100585938
+# Fy:         286.102508544922
+# Distortion: Kannala Brandt4
+# Coeffs     -0.00445054983720183  	0.0351637192070484  	-0.0318715386092663  	0.00411401409655809  	0  
+# FOV (deg):  112 x 108.8
+
+# Right Camera calibration and distortion parameters (OpenCV)
+Camera2.fx: 286.053100585938
+Camera2.fy: 286.102508544922
+Camera2.cx: 419.949584960938
+Camera2.cy: 406.088104248047
+
+# Kannala-Brandt distortion parameters
+Camera2.k1: -0.00445054983720183
+Camera2.k2: 0.0351637192070484
+Camera2.k3: -0.0318715386092663
+Camera2.k4: 0.00411401409655809
+    
+# Transformation matrix from right camera to left camera
+# Extrinsic from "Fisheye 2"	  To	  "Fisheye 1" :
+#  Rotation Matrix:
+#    0.999978         0.00292986       0.0059856     
+#   -0.00291792       0.999994        -0.0020022     
+#   -0.00599143       0.00198469       0.99998       
+
+#  Translation Vector: 0.0641825273633003  0.00016650186444167  -0.000164011231390759  
+
+Tlr: !!opencv-matrix
+  rows: 3
+  cols: 4
+  dt: f
+  data: [ 0.999978,         0.00292986,       0.0059856,   0.0641825273633003,
+         -0.00291792,       0.999994,        -0.0020022,   0.00016650186444167,
+         -0.00599143,       0.00198469,       0.99998,   -0.000164011231390759]
+
+# Lapping area between images
+Camera.lappingBegin: 0
+Camera.lappingEnd: 848
+
+Camera2.lappingBegin: 0
+Camera2.lappingEnd: 848
+
+# Camera resolution
+Camera.width: 848
+Camera.height: 800
+
+# Camera frames per second 
+Camera.fps: 30.0
+
+# stereo baseline times fx
+Camera.bf: 18.316306641
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Close/Far threshold. Baseline times.
+ThDepth: 35.0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1500 # Tested with 1250
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20 # 20
+ORBextractor.minThFAST: 7 # 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5 # -1.8
+Viewer.ViewpointF: 500

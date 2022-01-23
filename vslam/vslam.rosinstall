@@ -1,0 +1,12 @@
+- git:
+    local-name: catkin_simple
+    uri: https://github.com/catkin/catkin_simple.git
+    version: master
+- git:
+    local-name: dbow2_catkin
+    uri: https://github.com/hellovuong/dbow2_catkin.git
+    version: opencv4
+- git:
+    local-name: g2o_catkin
+    uri: https://github.com/hellovuong/g2o_catkin.git
+    version: master

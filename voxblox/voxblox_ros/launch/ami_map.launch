@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="play_bag" default="false" />
+  <arg name="bag_file" default="/PATH/TO/basement_dataset.bag"/>
+
+  <!-- Download the dataset here: https://projects.asl.ethz.ch/datasets/doku.php?id=basement2018 -->
+
+  <!-- <node name="player" pkg="rosbag" type="play" output="screen" args="-r 1.0 -clock $(arg bag_file)" if="$(arg play_bag)"/> -->
+
+  <node name="voxblox_node" pkg="voxblox_ros" type="tsdf_server" output="screen" args="-alsologtostderr" clear_params="true">
+    <remap from="pointcloud" to="/zed2/zed_node/semantic_pcl/midas"/>
+    <param name="tsdf_voxel_size" value="0.05" />
+    <!-- <param name="truncation_distance" value="0.5" /> -->
+    <param name="color_mode" value="lambert_color" />
+    <param name="enable_icp" value="false" />
+    <param name="icp_refine_roll_pitch" value="false" />
+    <param name="update_mesh_every_n_sec" value="1.0" />
+    <!-- <param name="mesh_min_weight" value="2" /> -->
+    <param name="method" value="fast" />
+    <param name="max_ray_length_m" value="8" />
+    <param name="max_integration_time_s"           value="3.5" />
+    <param name="clear_checks_every_n_frames"      value="1" />
+    <param name="max_block_distance_from_body"     value="50" />
+    <param name="update_mesh_every_n_sec" value="0.3" />
+    <param name="min_time_between_msgs_sec" value="0.15" />
+    <param name="voxel_carving_enabled"     value="true" />
+    <param name="use_const_weight" value="true" />
+    <param name="world_frame" value="world"/>
+    <param name="verbose" value="true" />
+    <param name="mesh_filename" value="$(find voxblox_ros)/mesh_results/$(anon basement).ply" />
+  </node>
+
+</launch>

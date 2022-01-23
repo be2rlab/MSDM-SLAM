@@ -1,0 +1,29 @@
+<launch>
+  <include file="$(find zed_wrapper)/launch/zed2.launch" />
+  <include file="$(find midas_cpp)/launch/midas_cpp_features.launch" />
+  <include file="$(find vslam)/ORB_SLAM3_ROS/launch/zed2.launch" />
+  <include file="$(find voxblox_ros)/launch/ami_map.launch" />
+  <!-- <include file="$(find grid_map)/launch/youbot_be2r.launch" /> -->
+  <!-- <include file="$(find kimera_semantics_ros)/launch/zed2_youbot.launch" /> -->
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find midas_cpp)/rviz/orb_slam3_depth.rviz" />
+
+  <node name="nodelet_manager" pkg="nodelet" type="nodelet" args="manager" output="screen"/>
+
+  <node name="cloudify" pkg="nodelet" type="nodelet" 
+          args="load depth_image_proc/point_cloud_xyzrgb nodelet_manager -no-bond" output="screen">
+
+      <remap from="rgb/camera_info"             to="/zed2/zed_node/left/camera_info"/>
+      <remap from="rgb/image_rect_color"        to="/zed2/zed_node/semantics"/>
+      <remap from="depth_registered/image_rect" to="/zed2/zed_node/depth/midas"/>
+
+      <remap from="depth_registered/points"     to="/zed2/zed_node/semantic_pcl/midas"/>
+
+      <param name="queue_size" value="20"/>
+  </node>
+
+   <node pkg="midas_cpp" type="segmentation.py" name="segmentation" output="log" respawn="true">
+        <param name="input_topic" value="/vslam_stereo_inertial/KF_DebugImage"/>
+        <param name="image_input_original_topic" value="/zed2/zed_node/left/image_rect_color"/>
+        <param name="segmentation_topic" value="/zed2/zed_node/semantics"/>
+  </node>
+</launch>
