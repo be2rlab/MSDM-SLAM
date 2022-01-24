@@ -1,0 +1,16 @@
+<launch>
+    <arg name="input_topic" default="image_topic"/>
+    <arg name="segmentation_topic" default="segmented"/>
+    <arg name="image_input_original_topic" default="/zed2/zed_node/left/image_rect_color"/>
+
+        <node pkg="midas_cpp" type="segmentation.py" name="segmentation" output="log" respawn="true">
+        <param name="input_topic" value="$(arg input_topic)"/>
+        <param name="image_input_original_topic" value="$(arg image_input_original_topic)"/>
+        <param name="segmentation_topic" value="$(arg segmentation_topic)"/>
+    </node>
+
+
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find midas_cpp)/rviz/seg.rviz"/>
+
+    
+</launch>
