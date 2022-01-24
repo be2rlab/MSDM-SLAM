@@ -4,9 +4,9 @@ This repository represnets a 3D DNN-based Metric Semantic Dense Mapping pipeline
 - A robust and accurate SLAM system with enhanced version of ORB-SLAM3.
 - Supporting 2D LiDAR mapping and navigation on occupancy grid. 
 
-A ROS node for generating scaled metric depth estimation using MiDaS from https://github.com/isl-org/MiDaS and to generate point cloud of the estimated metric depth point cloud. 
+One of the nodes in this pipeline is a ROS node for generating scaled metric depth estimation using MiDaS from https://github.com/isl-org/MiDaS and to generate point cloud of the estimated metric depth point cloud. Scaling process can be done using both of depth values from RGB-D camera or from features from Visual SLAM system.
 
-To use it PyTorch +1.7 should be there with CUDA +11.0.
+To use that node PyTorch +1.7 should be there with CUDA +11.0.
 
 ### Run Depth Only
 ~~~
