@@ -10,7 +10,7 @@ unzip libtorch-cxx11-abi-shared-with-deps-1.7.0+cu110.zip
 
 Now from ROS workspace:
 ~~~
-https://github.com/maliksyria/depth_estimation_ros.git
+https://github.com/be2rlab/MSDM-SLAM.git
 ~~~
 Then :
 ~~~
