@@ -1,5 +1,5 @@
 <launch>
-    <arg name="input_topic" default="/vslam_stereo_inertial/KF_DebugImage"/>
+    <arg name="input_topic" default="/zed2/zed_node/left/image_rect_color"/>
     <arg name="midas_topic" default="/midas_topic"/>
     <arg name="output_topic" default="/zed2/zed_node/depth/midas"/>
     <arg name="camera_info_in" default="/zed2/zed_node/left/camera_info"/>
@@ -38,10 +38,13 @@
         <param name="camera_info_in" value="$(arg camera_info_in)"/>
         <param name="camera_info_out" value="$(arg camera_info_out)"/>
     </node>
+    
 
     <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
+        args="0.26046 0 0.48866 0 0 0 1 base_link zed2_base_link" /> -->
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
         args="0 0 0 0 0 0 1 zed2_base_link zed2_left_camera_optical_frame" /> -->
-    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_Left_frame_broadcaster"
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_Left_frame_broadcaster"
         args="0 0 0 0 0 0 1 zed2_left_camera_optical_frame Left_frame" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_camera_frame_broadcaster"
         args="0.01 0. 0.        0.5 -0.5 0.5 0.5       zed2_left_camera_optical_frame zed2_camera_frame"/>
@@ -50,9 +53,8 @@
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_center_zed2_base_link2_broadcaster"
         args="0. 0. -0.015        0. -0.0249969 0. 0.9996875       zed2_camera_center zed2_base_link2"/>
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_base_link_base_link_broadcaster"
-        args="-0.26046 0. -0.48866        0. 0. 0. 1.       zed2_base_link2 base_link"/>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="world_map_broadcaster"
-            args="0. 0. 0.        0. 0. 0. 1.       world map"/>
+        args="-0.26046 0. -0.48866        0. 0. 0. 1.       zed2_base_link2 base_link"/> -->
+    
 
 <!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find midas_cpp)/rviz/orb_slam3_depth.rviz" /> -->
     

@@ -1,10 +1,10 @@
 <launch>
-    <arg name="input_topic" default="image_topic"/>
-    <arg name="midas_topic" default="midas_topic"/>
-    <arg name="output_topic" default="scaled_depth"/>
-    <arg name="map_topic" default="map"/>
-    <arg name="pose_topic" default="pose"/>
-    <arg name="camera_info_in" default="camera_info_in"/>
+    <arg name="input_topic" default="/vslam_stereo_inertial/KF_DebugImage"/>
+    <arg name="midas_topic" default="/midas_topic"/>
+    <arg name="output_topic" default="/zed2/zed_node/depth/midas"/>
+    <arg name="map_topic" default="/vslam_stereo_inertial/KF_MapPoints"/>
+    <arg name="pose_topic" default="/vslam_stereo_inertial/KF_Pose"/>
+    <arg name="camera_info_in" default="/zed2/zed_node/left/camera_info"/>
     <arg name="camera_info_out" default="camera_out"/>
     <arg name="image_output_topic" default="image_out"/>
     <arg name="model_name" default="model-small-traced.pt"/>
@@ -54,25 +54,24 @@
         <param name="image_output_topic" value="$(arg image_output_topic)"/>
     </node>
 
-    <node pkg="tf2_ros" type="static_transform_publisher" name="map_world"
-          args="0. 0. 0.  0. 0.0 -0.0 map world" />
-    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
-          args="0 0 0 0 0 0 1 zed2_base_link zed2_left_camera_optical_frame" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_Left_frame_broadcaster"
-          args="0 0 0 0 0 0 1 zed2_left_camera_optical_frame Left_frame" />
+        args="0 0 0 0 0 0 1 zed2_left_camera_optical_frame Left_frame" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_camera_frame_broadcaster"
-          args="0.01 0. 0.        0.5 -0.5 0.5 0.5       zed2_left_camera_optical_frame zed2_camera_frame"/>
+        args="0.01 0. 0.        0.5 -0.5 0.5 0.5       zed2_left_camera_optical_frame zed2_camera_frame"/>
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_frame_zed2_base_link_broadcaster"
-          args="0. -0.06 0.        0. 0. 0. 1.       zed2_camera_frame zed2_camera_center"/>
+        args="0. -0.06 0.        0. 0. 0. 1.       zed2_camera_frame zed2_camera_center"/>
     <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_center_zed2_base_link2_broadcaster"
-          args="0. 0. -0.015        0. -0.0249969 0. 0.9996875       zed2_camera_center zed2_base_link2"/>
-          
+        args="0. 0. -0.015        0. -0.0249969 0. 0.9996875       zed2_camera_center zed2_base_link2"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_base_link_base_link_broadcaster"
+        args="-0.26046 0. -0.48866        0. 0. 0. 1.       zed2_base_link2 base_link"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="world_map_broadcaster"
+            args="0. 0. 0.        0. 0. 0. 1.       world map"/>
           
    <!--  <node pkg="tf2_ros" type="static_transform_publisher" name="world_frame_Left_frame_broadcaster" -->
       <!--   args="0 0 0 0 0 0 world Left_frame" /> -->
 
   
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find midas_cpp)/rviz/orb_slam3_depth.rviz"/>
+
 <!--     <node pkg="tf2_ros" type="static_transform_publisher" name="world_map_broadcaster" -->
 <!--         args="0. 0. 0.        0. 0. 0. 1.       world map"/> -->
     

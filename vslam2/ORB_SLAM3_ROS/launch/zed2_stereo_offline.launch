@@ -1,0 +1,48 @@
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
+        args="0 0 0 0 0 0 1 zed2_base_link zed2_left_camera_optical_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_Left_frame_broadcaster"
+        args="0 0 0 0 0 0 1 zed2_left_camera_optical_frame Left_frame" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_camera_frame_broadcaster"
+        args="0.01 0. 0.        0.5 -0.5 0.5 0.5       zed2_left_camera_optical_frame zed2_camera_frame"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_frame_zed2_base_link_broadcaster"
+        args="0. -0.06 0.        0. 0. 0. 1.       zed2_camera_frame zed2_camera_center"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_center_zed2_base_link2_broadcaster"
+        args="0. 0. -0.015        0. -0.0249969 0. 0.9996875       zed2_camera_center zed2_base_link2"/>
+<!--  <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_base_link_base_link_broadcaster"-->
+<!--        args="-0.26046 0. -0.48866        0. 0. 0. 1.       zed2_base_link2 base_link"/>-->
+  <node name="vslam_stereo_offline" pkg="vslam"
+      type="vslam_stereo_offline" output="screen">
+
+    <!--    Data types -->
+    <param name="data_type" type="string" value="tum" />
+    <param name="data_path" type="string" value="/media/vuong/Samsung_Vuong/Datasets/rector_hall_dataset/dataset1" />
+    <!--    ORB_SLAM3 arguments -->
+    <param name="Vocab_path" type="string" value="$(find vslam)/ORB_SLAM3/Vocabulary/ORBvoc.txt" />
+    <param name="Params" type="string" value="$(find vslam)/ORB_SLAM3_ROS/params/Stereo-Inertial/Zed2.yaml" />
+    <param name="Output_name" type="string" value="zed2" />
+
+    <!--    Enable the Pangolin visualization-->
+    <param name="Visualize" type="bool" value="false" />
+
+    <!--    Preprocess the images-->
+    <param name="Do_Rectify" type="bool" value="true" />
+    <param name="Do_Equalize" type="bool" value="false" />
+    <param name="Do_Resize" type="bool" value="false" />
+
+    <!--    Frame ID-->
+    <param name="pointcloud_frame_id" type="string" value="map" />
+    <param name="world_frame_id" type="string" value="map" />
+    <param name="left_camera_frame_id" type="string" value="zed2_left_camera_optical_frame" />
+
+    <!--    Target frame id for tf-->
+    <param name="target_frame_id" type="string" value="base_link" />
+
+    <!--    Topics-->
+    <!--    <remap from="/camera/left/image_raw" to="/zed2/zed_node/left/image_rect_gray" />-->
+    <!--    <remap from="/camera/right/image_raw" to="/zed2/zed_node/right/image_rect_gray" />-->
+    <remap from="/camera/left/image_raw" to="/zed2/zed_node/left/image_rect_color" />
+    <remap from="/camera/right/image_raw" to="/zed2/zed_node/right/image_rect_color" />
+
+  </node>
+</launch>

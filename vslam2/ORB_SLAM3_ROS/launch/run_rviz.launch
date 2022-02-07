@@ -1,0 +1,15 @@
+<launch>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_world"
+          args="0 0 0 0 0 0 1 map world" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
+          args="0 0 0 0 0 0 1 zed2_base_link zed2_left_camera_optical_frame" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_Left_frame_broadcaster"
+          args="0 0 0 0 0 0 1 zed2_left_camera_optical_frame Left_frame" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_camera_frame_broadcaster"
+          args="0.01 0. 0.        0.5 -0.5 0.5 0.5       zed2_left_camera_optical_frame zed2_camera_frame"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_frame_zed2_base_link_broadcaster"
+          args="0. -0.06 0.        0. 0. 0. 1.       zed2_camera_frame zed2_camera_center"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="zed2_camera_center_zed2_base_link2_broadcaster"
+          args="0. 0. -0.015        0. -0.0249969 0. 0.9996875       zed2_camera_center zed2_base_link2"/>
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find vslam)/ORB_SLAM3_ROS/rviz/rviz_vio.rviz" />
+</launch>

@@ -1,0 +1,54 @@
+<!--
+  Copyright 2016 The Cartographer Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<launch>
+  <param name="/use_sim_time" value="false" />
+
+  <!-- <param name="robot_description"
+    textfile="$(find cartographer_ros)/urdf/youbot.urdf" /> -->
+
+  <param name="robot_description" command="$(find xacro)/xacro $(find youbot_description)/robots/youbot_base_only.urdf.xacro" />
+
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher"
+    type="robot_state_publisher" /> -->
+
+  <arg name="load_state_filename" value="$(find cartographer_ros)/state_files/demo_room.bag.pbstream"/>
+
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory $(find cartographer_ros)/configuration_files
+          -configuration_basename youbot_localization.lua
+          -load_state_filename $(arg load_state_filename)"
+      output="screen">
+    <!-- <remap from="echoes" to="horizontal_laser_2d" /> -->
+  </node>
+
+  <!-- <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node" args="-resolution 0.05" /> -->
+
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find midas_cpp)/rviz/orb_slam3_depth.rviz" />
+    <!-- <node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" /> -->
+
+    <node pkg="tf" type="static_transform_publisher" name="zed2_left_camera_optical_frame_zed2_left_camera_optical_frame2_broadcaster"
+        args="0.26046 0 0.48866 0 0 0 1 base_link zed2_base_link 100" />
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="world_map_broadcaster"
+            args="0. 0. 0.        0. 0. 0. 1.       world map"/>
+
+  <!-- <node name="playbag" pkg="rosbag" type="play"
+      args="clock $(arg bag_filename)" /> -->
+</launch>

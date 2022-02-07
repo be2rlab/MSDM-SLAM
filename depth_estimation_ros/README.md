@@ -10,7 +10,7 @@ unzip libtorch-cxx11-abi-shared-with-deps-1.7.0+cu110.zip
 
 Now from ROS workspace:
 ~~~
-https://github.com/be2rlab/MSDM-SLAM.git
+https://github.com/maliksyria/depth_estimation_ros.git
 ~~~
 Then :
 ~~~
@@ -29,16 +29,7 @@ A pre-trained traced model should be in cached ROS directory which can be done b
 cd ~/.ros
 wget https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-small-traced.pt
 ~~~
-# Run Depth Only
+# Run
 ~~~
 roslaunch midas_cpp midas_cpp_xyzrgb.launch input_topic:="/input/image" gt_topic:="/ground_truth_depth" camera_info_in:="/image/camera_info"
-~~~
-# Run Segmentation only 
-
-~~~
-roslaunch midas_cpp midas_cpp_seg.launch input_topic:="/input/image"  image_input_original_topic:="/input/image_color" segmentation_topic:="/segmented"
-~~~
-# Run Segmentation and Depth rescale with SLAM features
-~~~
-roslaunch midas_cpp midas_cpp_features_seg.launch input_topic:="/input/image"  camera_info_in:="/input/camera_info" map_topic:="/input/map_point" pose_topic:="/input/pose" image_input_original_topic:="/input/image_color" segmentation_topic:="/segmented"
 ~~~
