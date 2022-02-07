@@ -64,3 +64,5 @@ vslam2/ORB_SLAM3_ROS/params/Monocular/TUM_TimeStamps/*.txt
 
 vslam2/ORB_SLAM3_ROS/params/Monocular-Inertial/mono_inertial_euroc
 vslam2/ORB_SLAM3_ROS/launch/imu.txt
+vslam2/ORB_SLAM3/cmake-build-release/*
+
