@@ -35,3 +35,14 @@ This software is based on [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2) deve
 
 <a href="https://youtu.be/HyLNq-98LRo" target="_blank"><img src="https://img.youtube.com/vi/HyLNq-98LRo/0.jpg" 
 alt="ORB-SLAM3" width="240" height="180" border="10" /></a>
+
+
+## License
+
+This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+
+### Dependencies Licenses:
+- **ORB-SLAM3** - Licensed under GPLv3
+- **MiDaS** - Licensed under MIT License
+
+This repository contains ORB-SLAM3 code. In compliance with GPLv3's requirements, the entire project is distributed under GPLv3.
